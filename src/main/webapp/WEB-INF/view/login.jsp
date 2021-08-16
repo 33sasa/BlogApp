@@ -41,6 +41,9 @@ String message = (String) request.getAttribute("message");
 					<input class="btn btn-outline-primary my-1" type="submit"
 						value="ログイン" />
 				</div>
+				<div>
+				  <a href="NewUserServlet" class="btn btn-danger">新規登録</a>
+        </div>
 			</form>
 		</div>
 	</div>

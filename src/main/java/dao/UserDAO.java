@@ -32,5 +32,43 @@ public class UserDAO {
 		}
 		return true;
 	}
+	
+	//ユーザー新規登録
+	public boolean UserSave(UserDTO user) {
 
+		// DB接続
+		try {
+			Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
+
+			PreparedStatement pStmt = conn
+					.prepareStatement("INSERT INTO USER (name, password) VALUES(?,?)");
+			// SELECTの結果を取得
+			pStmt.setString(1, user.getName());
+			pStmt.setString(2, user.getPassword());
+			pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	//ユーザー重複チェック
+	public boolean findUser(UserDTO user) {
+
+		// DB接続
+		try {
+			Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
+
+			PreparedStatement pStmt = conn
+					.prepareStatement("SELECT NAME FROM USER WHERE NAME = ?");
+			// SELECTの結果を取得
+			pStmt.setString(1, user.getName());
+			pStmt.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 }
